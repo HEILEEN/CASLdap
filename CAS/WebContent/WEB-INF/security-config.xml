@@ -10,7 +10,7 @@
 		
 	<security:http entry-point-ref="casEntryPoint" use-expressions="true" auto-config="true">				
 		<security:form-login login-page="http://192.168.60.231:8080/CAS/login.jsp" authentication-failure-handler-ref="failureHandler" authentication-success-handler-ref="successHandler"/>
-		<security:logout invalidate-session="true" logout-success-url="/login.jsp" />
+		<security:logout invalidate-session="true" logout-success-url="http://192.168.60.231:8080/CAS/login.jsp" />
 		<security:intercept-url pattern="/index.jsp" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/menu.jsp"  access="isAuthenticated()"/>
 		<security:intercept-url pattern="/confianza/**" access="isAuthenticated()"/>
@@ -51,12 +51,14 @@
     />		
     
 	<bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
-		p:authenticationUserDetailsService-ref="authenticationUserDetailsService"
+		p:authenticationUserDetailsService-ref="userDetailsService"
 		p:serviceProperties-ref="serviceProperties" 
 		p:ticketValidator-ref="ticketValidator"
 		p:key="casldap"
 	/>	 	
 
+	<bean id="userDetailsService" class="confianza.userDetailsService"/>
+	
 	<bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
 		p:service="http://192.168.60.231:8080/CAS/j_spring_cas_security_check" 
 		p:sendRenew="false"
@@ -89,4 +91,12 @@
 	</bean>
 
 	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />
+	
+	<ldap:context-source
+          url="ldap://192.168.100.2:389"
+          base="dc=confianza,dc=local"
+          username="webappconfianza"
+          password="Confianza01" />
+          
+    <ldap:ldap-template id="ldapTemplate" ignore-partial-result="true" search-scope="SUBTREE" />
 </beans>
