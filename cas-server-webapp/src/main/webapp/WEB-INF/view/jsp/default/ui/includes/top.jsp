@@ -34,17 +34,7 @@
   <title>CAS &#8211; Central Authentication Service</title>
   
   <spring:theme code="standard.custom.css.file" var="customCssFile" />
-  <link rel="stylesheet" href="<c:url value="${customCssFile}" />" />
-  <link rel="icon" href="<c:url value="/favicon.ico" />" type="image/x-icon" />
+  <link href="lib/bootstrap/3.2.0-dist/css/bootstrap.css" rel="stylesheet">  
   
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
-  <![endif]-->
 </head>
-<body id="cas">
-  <div id="container">
-      <header>
-        <a id="logo" href="http://www.jasig.org" title="<spring:message code="logo.title" />">Jasig</a>
-        <h1>Central Authentication Service (CAS)</h1>
-      </header>
-      <div id="content">
+
